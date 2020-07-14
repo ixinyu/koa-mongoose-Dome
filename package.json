@@ -1,0 +1,29 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon app.js ",
+    "dev":"nodemon nodedome.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "koa": "^2.12.1",
+    "koa-body": "^4.2.0",
+    "koa-bodyparser": "^4.3.0",
+    "koa-router": "^9.0.1",
+    "koa-static": "^5.0.0",
+    "koa-views": "^6.3.0",
+    "koa2-cors": "^2.0.6",
+    "mongoose": "^5.9.19",
+    "nodemon": "^2.0.4"
+  },
+  "dependencies": {
+    "inquirer": "^7.2.0",
+    "jsonwebtoken": "^8.5.1",
+    "koa-multer": "^1.0.2"
+  }
+}
