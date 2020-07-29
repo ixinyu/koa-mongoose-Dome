@@ -169,5 +169,9 @@ router.post('/addOrder',async(ctx)=>{
 app.use(router.routes())  /* 启动路由*/
 .use(router.allowedMethods())  /* 可配置和不配置，建议配置 */
 
+const port = process.env.PORT||3000
+
 // 在端口3000监听:
-app.listen(3000);
+app.listen(port,()=>{
+  console.log(`server port ${port}`)
+});

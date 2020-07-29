@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon app.js ",
-    "dev":"nodemon nodedome.js",
+    "dev": "nodemon nodedome.js",
+    "dome": "nodemon jiekou/main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -22,8 +23,12 @@
     "nodemon": "^2.0.4"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "inquirer": "^7.2.0",
     "jsonwebtoken": "^8.5.1",
-    "koa-multer": "^1.0.2"
+    "koa-multer": "^1.0.2",
+    "koa-passport": "^4.1.3",
+    "passport-jwt": "^4.0.0",
+    "validator": "^13.1.1"
   }
 }
