@@ -5,6 +5,7 @@ const mongoose = require('mongoose')
 const db = require('../config/keys').mongoURI
 const users = require('./routes/api/users')
 const passport = require('koa-passport')
+var json = require('koa-json');
 
 //实例化
 const app = new Koa();
@@ -13,6 +14,7 @@ app.use(KoaBody({
 }))
 app.use(passport.initialize())
 app.use(passport.session())
+app.use(json());
 
 require('../config/passport')(passport)
 

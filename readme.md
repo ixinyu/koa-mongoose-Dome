@@ -4,8 +4,8 @@ jsonwebtoken 生成token
 koa-passport 校验方法(邮箱密码，token是否正确...)
 校验token 结合 passport-jwt
 validator  表单验证也可以使用js判断
-
 koa 结合 mongoose 编写的接口dome
+koa-json 返回json格式的数据
 
  // order表关联order_item
  OrderModel.aggregate([ // 聚合管道关联查询

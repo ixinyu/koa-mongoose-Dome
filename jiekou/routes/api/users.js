@@ -6,6 +6,7 @@ const tools = require('../../common')
 const jwt = require('jsonwebtoken')
 const keys = require('../../../config/keys')
 const passport = require("koa-passport");
+
 /**
  * @route GET/POST api/users/test
  * @desc 测试接口
@@ -104,6 +105,7 @@ router.get('/useInfo',
     }
   }
 )
+
 
 
 module.exports = router.routes()
