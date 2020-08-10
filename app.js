@@ -26,7 +26,7 @@ app.use(KoaBody({
 //静态资源服务，指定对外提供访问的根目录
 app.use(static(path.join(__dirname)+'/static'));
 
-router.post('/login',async(ctx,doc)=>{
+router.post('/login',async(ctx,doc)=>{  
   // console.log(ctx.request.body)
   //获取post 参数 ctx.request.body
   //获取get参数 ctx.query

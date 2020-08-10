@@ -4,16 +4,20 @@ const mongoose = require('mongoose')
 const UserSchema = mongoose.Schema({
   username: {
     type:String,
-    require:true
+    required:true,
   },
   password: {
     type:String,
-    require:true
+    required:true,
   },
   avatar:{
     type:String,
     default:''
   },
+  phone:{
+    type:Number,
+　　 match: /^\d{11}$/
+　},
   date:{
     type:Date,
     default : Date.now
