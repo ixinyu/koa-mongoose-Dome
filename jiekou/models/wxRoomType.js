@@ -6,6 +6,10 @@ const RoomTypeSchema = mongoose.Schema({
     type:String,
     required:true
   },
+  imgUrl:{
+    type:String,
+    default:'http://hczs.com/uploads/20200418/05c7254e5446568d596d7d2b7e19f35e.jpg'
+  },
   original_price:{
     type:Number
   },
@@ -27,6 +31,10 @@ const RoomTypeSchema = mongoose.Schema({
   bed_type:{
     type:String,
     default:'大床'
+  },
+  roomNum:{
+    type:Number,
+    default:0
   }
 })
 

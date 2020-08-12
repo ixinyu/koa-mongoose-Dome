@@ -4,7 +4,8 @@ const mongoose = require('mongoose')
 const HotelsSchema = mongoose.Schema({
   auth:{
     type:String,
-    enum: ['0', '1']   // 设置字符串的可选值, 0未认证，1已认证
+    enum: ['0', '1'],   // 设置字符串的可选值, 0未认证，1已认证
+    default:1
   },
   main_picture: {
     type:Array,

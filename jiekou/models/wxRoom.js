@@ -6,6 +6,10 @@ const wxRoomSchema = mongoose.Schema({
     type:String,
     required:true,
   },
+  status: {
+    type: Number,
+    default: 0, //0未使用，1已使用
+  },
   hotel_id:{
     type:String,
     required:true
@@ -14,9 +18,6 @@ const wxRoomSchema = mongoose.Schema({
     type: mongoose.Types.ObjectId, //ObjectId类型
     required:true,
     ref:'wxRoomType'
-  },
-  room_type_name:{
-    type:String,
   },
   floor:{
     type:String,

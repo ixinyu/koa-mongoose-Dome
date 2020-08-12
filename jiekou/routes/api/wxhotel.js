@@ -4,11 +4,14 @@ const router = require('koa-router')();
 const Hotel = require('../../models/wxhotel')
 const RoomType = require('../../models/wxRoomType')
 const Room = require('../../models/wxRoom')
+
 const mongoose = require('mongoose')
 
 //添加酒店
 router.post('/addHotel',async ctx=>{
   const data = ctx.request.body
+  data.main_picture = data.main_picture.split(',')
+  // console.log(data.main_picture)
   const result = await Hotel.find({
     hotel_name : data.hotel_name
   })
@@ -78,6 +81,7 @@ router.post('/addRoomType',async ctx=>{
     hotel_id:data.hotel_id,
     room_type_name : data.room_type_name
   })
+  // console.log(result)
   if(!result.length){ 
     const newRoomType = new RoomType(data)
     await newRoomType.save().then(user=>{
@@ -96,7 +100,7 @@ router.post('/addRoomType',async ctx=>{
 
 //添加单个房间
 router.post('/addRoom',async ctx=>{
-  // console.log(ctx.request.body)
+  console.log(ctx.request.body)
   const data = ctx.request.body
   const result = await Room.find({
     hotel_id:data.hotel_id,
@@ -114,6 +118,7 @@ router.post('/addRoom',async ctx=>{
     }).catch((err)=>{
       ctx.fail(err._message)
     })
+    await RoomType.updateOne({_id: data.room_type_id},{$inc: { roomNum: 1 }}) //roomNum增加1
   }else { //用户已存在
     ctx.fail('该房间已被添加')
   }
@@ -150,20 +155,33 @@ router.post('/addRoomMore',async ctx=>{
 //房间列表
 router.get('/roomList',async ctx=>{
   console.log(ctx.query)
-  const result = await Room.aggregate([ // 聚合管道关联查询
-    {
-      $lookup:
-      {
-       from: 'wxroomtypes', // 关联表的名称
-       localField: 'room_type_id', //该表关联字段
-       foreignField: '_id', //关联表的字段
-       as: 'rooms'  // 查找的内容复制给x (items) //得到的结果是数组
-      }
-   },
-   {
-     $match: {'hotel_id': ctx.query.hotel_id} //查询条件
-   }
- ])
+  const result = await RoomType.find({'hotel_id': ctx.query.hotel_id})
+
+  //联合查询查的房间
+//   const result = await Room.aggregate([ // 聚合管道关联查询
+//     {
+//       $match: {'hotel_id': ctx.query.hotel_id} //查询条件
+//     },
+//     {
+//       $lookup:
+//       {
+//        from: 'wxroomtypes', // 关联表的名称
+//        localField: 'room_type_id', //该表关联字段
+//        foreignField: '_id', //关联表的字段
+//        as: 'rooms'  // 查找的内容复制给x (items) //得到的结果是数组
+//       }
+//     },
+//     { $unwind: "$rooms" },//数据打散 $unwind方法会将数组解开，每条包含数组中的一个值。
+//   //  {
+//   //     $project://指定查询字段的关键词
+//   //     {
+//   //       rooms: {
+//   //         $mergeObjects:"$rooms"
+//   //       }
+//   //     }
+//   //  },
+//  ])
+//  console.log(result)
   if(!result.length){ 
     const data = {
       msg:'success',
