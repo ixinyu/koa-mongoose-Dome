@@ -41,7 +41,13 @@ Request.prototype.setCookie = function(cookie) {
 }
 
 Request.prototype.request = function(method, url, params) {
-	let postData = qs.stringify(params || {});
+	if(method == 'GET'){
+		var postData = qs.stringify(params || {});
+	}
+	if(method == 'POST'){
+		var postData = params
+	}
+	console.log(params)
 	let urlObj = URL.parse(url);
 	let protocol = urlObj.protocol;
 	let options = {
@@ -60,6 +66,7 @@ Request.prototype.request = function(method, url, params) {
 				chunks.push(data);
 				// result += data
 			});
+		
 			res.on('end', () => {
 				// resolve(result)
 				let buffer = Buffer.concat(chunks);

@@ -21,11 +21,12 @@ router.post('/wxlogin',async ctx=>{
     let payLoad = JSON.parse(res)
     if(payLoad.openid){
       //返回token
-      const token = jwt.sign(payLoad,keys.secretOrkey,{expiresIn:'1 day'})
+      const token = jwt.sign(payLoad,keys.secretOrkey,{expiresIn:'2 days'})
       ctx.body = {
         code:0,
         msg:'登录成功',
-        data:'Bearer '+token
+        data:token
+        // data:'Bearer '+token
       }
     }else {
       ctx.body = {

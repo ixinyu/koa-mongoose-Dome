@@ -5,15 +5,14 @@ const mongoose = require('mongoose')
 const path=require("path");
 const static = require('koa-static');
 const db = require('../config/keys').mongoURI
-const passport = require('koa-passport')
 const json = require('koa-json');
-const koaJwt = require('koa-jwt')
-const keys = require('./config/keys')
 const reponseBody = require('./utils/reponseBody')
+const verifyToken = require('./utils/verifyToken')
 const users = require('./routes/api/users')
 const wxLogin = require('./routes/api/wxLogin')
-const hotel = require('././routes/api/wxhotel')
-const upload = require('././routes/api/upload')
+const hotel = require('./routes/api/wxhotel')
+const upload = require('./routes/api/upload')
+const wxpay = require('./routes/api/wxpay')
 
 //实例化
 const app = new Koa();
@@ -26,30 +25,15 @@ app.use(KoaBody({
         multipart:true
   }
 }))
-app.use(passport.initialize())
-app.use(passport.session())
 app.use(json());
 app.use(reponseBody())
-app.use(function(ctx, next){
-  return next().catch((err) => {
-    if (401 == err.status) {
-      ctx.status = 401;
-      ctx.body = {
-        code:-2,
-        msg:'token已过期',
-      }
-    } else {
-      throw err;
-    }
-  });
-});
-app.use(koaJwt({ secret: keys.secretOrkey }).unless({
-  path: [/^\/api\/login/]
-}));
+app.use(verifyToken)
 
 
 
-require('../config/passport')(passport)
+
+
+// require('../config/passport')(passport)
 
 //连接数据库
 mongoose.connect(db, { useNewUrlParser: true,useUnifiedTopology: true }, (err) => {
@@ -67,6 +51,8 @@ router.use('/api/users',users)
 router.use('/api/login',wxLogin)
 router.use('/api/hotel',hotel)
 router.use('/api/upload',upload)
+router.use('/api/wxpay',wxpay)
+
 
 //启动路由
 app.use(router.routes())  /* 启动路由*/
