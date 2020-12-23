@@ -10,8 +10,8 @@ router.post('/wxlogin',async ctx=>{
   // console.log(ctx.request.body)
     // 获取用户 openId
     const param = qs.stringify({
-      'appid':'wx02739ad172c01807',
-      'secret':'35a978bd4e35fff100cee210058f8360',
+      'appid':'xxx',
+      'secret':'xxx',
       'js_code':data.code,
       'grant_type':'authorization_code'
     })
